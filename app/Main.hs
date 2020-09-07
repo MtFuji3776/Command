@@ -5,6 +5,7 @@ module Main where
 import System.Environment
 import Turtle
 import qualified Data.Text as T
+import System.Random
 --import Regex
 
 main :: IO ()
@@ -13,6 +14,13 @@ main = do
     args <- getArgs
     putStr $ n ++ concat args 
 
+
+-- 休憩時間の筋トレ用トランプシャッフル
+shuffle_ :: IO Int
+shuffle_ = getStdRandom (randomR (1,13))
+
+shuffle :: IO ()
+shuffle = shuffle_ >>= print
 -- ディレクトリ移動用関数たち
 
 -- ディレクトリツリーの現在位置から親ノードへ移動
@@ -67,6 +75,9 @@ totemplates = do
 
 tohaskell :: IO()
 tohaskell = gohome <> cd "haskell_testing"
+
+topurescript :: IO ()
+topurescript = gohome >> cd "purescriptprojects"
 
 -- 主要ディレクトリに移動してPathを取得してくるコマンドライン
 -- 共通の仕様として、Pathを取得したら元のディレクトリに戻ってくる。
