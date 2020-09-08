@@ -6,6 +6,7 @@ import System.Environment
 import Turtle
 import qualified Data.Text as T
 import System.Random
+import Data.Either(fromRight)
 --import Regex
 
 main :: IO ()
@@ -16,6 +17,9 @@ main = do
 
 
 -- 休憩時間の筋トレ用トランプシャッフル
+    -- 60〜90分毎に自動で動かしたら便利だし強制的で面白いのでは？
+    -- 定時で90分毎とかで良いかもしれない
+    -- 特定の時刻になると起動する関数を書くには？ずっと条件判定を回し続けるとか？
 shuffle_ :: IO Int
 shuffle_ = getStdRandom (randomR (1,13))
 
@@ -136,10 +140,11 @@ arrange f filetype filename = do
 mkreading :: Turtle.FilePath -> IO()
 mkreading filename = do
     p <- pwd
+    let filename' = fromText . repSpaces . repHyphen . fromRight "" . toText $ filename
     toreading
-    mkdir filename
-    cd filename
-    mkuplatex filename
+    mkdir filename'
+    cd filename'
+    mkuplatex filename'
     mkdir "pandoc"
     do  -- pandocディレクトリでの作業
         cd "pandoc"
@@ -206,6 +211,24 @@ mkMDs path = do
     t <- readTextFile path
     mkMDs_ . map rmSideSpaces . cutsharp $ t
 
+mkdirs_ :: [Text] -> IO ()
+mkdirs_ [] = return ()
+mkdirs_ (t:ts) = do
+    let name = repSpaces.repHyphen $ t
+        path = fromText name
+    b <- testdir path
+    if b then mkdirs_ ts
+         else do
+              mkdir path
+              cd path
+              touch "skelton.md"
+              cd ".."
+              mkdirs_ ts
+
+mkdirs :: Turtle.FilePath -> IO ()
+mkdirs path = do
+    t <- readTextFile path
+    mkdirs_ . map rmSideSpaces . cutsharp $ t
 
 --一般の置換関数
     --foldrのコールバック関数は、文末でマッチングした場合を取りこぼすので、改行文字を挿入して末尾でのマッチングを回避している
