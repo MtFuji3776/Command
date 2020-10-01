@@ -7,7 +7,7 @@ import Turtle
 import qualified Data.Text as T
 import System.Random
 import Data.Either(fromRight)
---import Regex
+import RegexParser.Parser
 
 main :: IO ()
 main = do
@@ -82,6 +82,35 @@ tohaskell = gohome <> cd "haskell_testing"
 
 topurescript :: IO ()
 topurescript = gohome >> cd "purescriptprojects"
+
+diary :: IO ()
+diary = tolatexs >> cd "DailyStrategy"
+
+opendiary :: IO ExitCode
+opendiary = diary >> code
+
+pushdiary :: IO ()
+pushdiary = do
+    tolatexs
+    push "Strategy更新"
+    diary
+
+tolatexsty :: IO ()
+tolatexsty = cd "/usr/local/texlive/texmf-local/tex/latex/local"
+
+-- openシリーズ
+
+openreact = topurescript >> cd "react" >> code
+
+opencommand = tocommand >> code
+
+opendia = tohaskell >> cd "diagrams" >> code
+
+opentidal = tohaskell >> cd "tidal_debut" >> code
+
+openfinger = tohaskell >> cd "openfinger" >> code
+
+
 
 -- 主要ディレクトリに移動してPathを取得してくるコマンドライン
 -- 共通の仕様として、Pathを取得したら元のディレクトリに戻ってくる。
@@ -160,8 +189,9 @@ mkreading filename = do
     cd p
 
 mkthinkingtempl :: Turtle.FilePath -> IO()
-mkthinkingtempl filename = do
+mkthinkingtempl filename' = do
     p <- pwd
+    let filename = fromText . repSpaces . repHyphen . fromRight "" . toText $ filename'
     mkdir filename
     cd filename
     mkdir "pandoc"
@@ -171,9 +201,36 @@ mkthinkingtempl filename = do
         cd "img" >> touch "url.md" 
     cd p --最初にいたディレクトリに戻る
 
+
+repSpacesAndHyphens = fromText . repSpaces . repHyphen . fromRight "" . toText 
+
+mkwriting filename' = do
+    p <- pwd
+    let filename = repSpacesAndHyphens filename'
+    mkdir filename
+    cd filename
+    mkdir "pandoc"
+    cd "pandoc"
+    do p' <- pwd >> touch "Skelton.md" >> mkdir "documents" >> mkdir "img"
+       cd "documents" >> touch "url.md" >> cd ".."
+       cd "img" >> touch "url.md"
+    cd p
+
 mkworksheet :: Turtle.FilePath -> Turtle.FilePath -> IO ()
 mkworksheet = arrange toworksheets
     
+mkdiarydirectory :: MonadIO i => Turtle.FilePath -> i () -- ToDo:呼び出した時点の年月を自動で取得してディレクトリ名にさせる(MonadIO i => i ()になる)
+mkdiarydirectory name = do
+    p <- pwd
+    b <- testdir name
+    if b then return ()
+         else do
+             mkdir name
+             cd name
+             mkdir "img"
+    cd p
+    
+
 
 
 -- パーサーと組み合わせて使うコンビネータ
