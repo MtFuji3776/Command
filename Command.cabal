@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 3b76c78394b3fe581922a075d4ddd4685de45a5b9c36f2e291b0642e0d9095ca
+-- hash: eeabcee4b63c18c0600651631c3625f35c4567074eaa0df9cc321534663a7432
 
 name:           Command
 version:        0.1.0.0
@@ -34,9 +34,11 @@ library
       Paths_Command
   hs-source-dirs:
       src
+  default-extensions: OverloadedStrings
   build-depends:
       attoparsec
     , base >=4.7 && <5
+    , pandoc
     , random
     , text
     , turtle
@@ -45,15 +47,18 @@ library
 executable Command-exe
   main-is: Main.hs
   other-modules:
+      PandocTool
       RegexParser.Parser
       Paths_Command
   hs-source-dirs:
       app
+  default-extensions: OverloadedStrings
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       Command
     , attoparsec
     , base >=4.7 && <5
+    , pandoc
     , random
     , text
     , turtle
@@ -66,11 +71,13 @@ test-suite Command-test
       Paths_Command
   hs-source-dirs:
       test
+  default-extensions: OverloadedStrings
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       Command
     , attoparsec
     , base >=4.7 && <5
+    , pandoc
     , random
     , text
     , turtle

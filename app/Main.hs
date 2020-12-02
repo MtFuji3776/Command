@@ -80,6 +80,8 @@ totemplates = do
 tohaskell :: IO()
 tohaskell = gohome <> cd "haskell_testing"
 
+todiagrams = tohaskell >> cd "diagrams"
+
 topurescript :: IO ()
 topurescript = gohome >> cd "purescriptprojects"
 
@@ -95,6 +97,13 @@ pushdiary = do
     push "Strategy更新"
     diary
 
+pushdiagrams = do
+    p <- pwd
+    todiagrams
+    push "diagrams更新"
+    cd p
+
+
 tolatexsty :: IO ()
 tolatexsty = cd "/usr/local/texlive/texmf-local/tex/latex/local"
 
@@ -108,7 +117,11 @@ opendia = tohaskell >> cd "diagrams" >> code
 
 opentidal = tohaskell >> cd "tidal_debut" >> code
 
-openfinger = tohaskell >> cd "openfinger" >> code
+openfinger = tohaskell >> cd "fingertrees" >> code
+
+opendiagrams = tohaskell >> cd "diagrams" >> code
+
+openyesod = tohaskell >> cd "yesodstudy" >> code
 
 
 
@@ -230,6 +243,14 @@ mkdiarydirectory name = do
              mkdir "img"
     cd p
     
+-- 直に引数を取らずにタイムスタンプから自動でファイル名を生成するプログラムを作る
+    -- PEGでタイムスタンプの年月日だけ取得するパーサーを作ってみる
+mkdiary name = do
+    b <- testfile name
+    if b then return ()
+         else do
+             touch $ name
+             writeTextFile name $ "# " <> (fromRight "" . toText $ name) <> "\n\n|運動|量|\n|--|--|\n|||\n\n\n|作業名|コマ|\n|--|--|\n|||\n"
 
 
 
@@ -328,3 +349,8 @@ push m = shell "git add ." "" *> shell ("git commit -m " <> m) "" *> shell "git 
 
 pull :: IO ExitCode
 pull = shell "git pull origin master" ""
+
+mktableCreatine = 
+    let xs = [ (x, even x) | x <- [1..31]]
+        f (x,b) = "|" ++ show x ++ "|" ++ (if b then "○" else "") ++ "|\n"
+    in concatMap f xs

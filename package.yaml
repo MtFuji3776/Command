@@ -25,6 +25,8 @@ dependencies:
 - attoparsec
 - text
 - random
+- pandoc
+- pandoc-types
 
 library:
   source-dirs: src
@@ -50,3 +52,6 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - Command
+
+default-extensions:
+- OverloadedStrings
