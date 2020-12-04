@@ -6,10 +6,12 @@ module PandocTool where
 -- import Text.Pandoc.Definition
 -- import Text.Pandoc.Class
 import Text.Pandoc
-import Data.Text (Text,pack)
+import Data.Text (Text,pack,unpack)
 import qualified Data.Text.IO as TIO
 import Text.Pandoc.PDF
 import Text.Pandoc.Builder
+import Turtle
+import Regex
 
 
 
@@ -35,6 +37,19 @@ test1 = do
     TIO.putStrLn rst
     TIO.writeFile "test.tex" rst
 
+-- genPDF :: Text -> IO ()
+genPDF file = do
+    src     <- TIO.readFile (unpack file <> ".md")
+    result  <- runIO $ do
+        doc <- readMarkdown (def{readerExtensions = extensionsFromList [Ext_tex_math_dollars,Ext_raw_tex]}) src
+        txt <- writeLaTeX def doc
+        return $ preamble1 txt
+    rst <- handleError result
+    let rst' = rmtightlist rst
+    TIO.putStrLn rst'
+    TIO.writeFile (unpack file <> ".tex") rst'
+    runIO $ shell ("lualatex " <>  file) ""
+
 preamble1 :: Text -> Text
 preamble1 txt = "\\documentclass{ltjsarticle}\n"
     -- <> "\\usepackage[utf8]{inputenc}\n"
@@ -48,7 +63,7 @@ preamble1 txt = "\\documentclass{ltjsarticle}\n"
     <> "\\usepackage{amsthm}\n"
     <> "\\usepackage{amssymb}\n"
     <> "\\usepackage{amsfonts}\n"
-    <> "\\usepackage[noheadfoot,top=0mm,bottom=0mm,hmargin=-5mm]{geometry}\n"
+    <> "\\usepackage[noheadfoot,top=10mm,bottom=10mm,hmargin=10mm]{geometry}\n"
     -- <> "\\usepackage{enumitem}\n"
     <> "\\usepackage{tikz}\n"
     -- <> "\\usepackage[epsilon]{backnaur}\n"

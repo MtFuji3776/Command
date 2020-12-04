@@ -1,4 +1,4 @@
-This is LuaTeX, Version 1.10.0 (TeX Live 2019)  (format=lualatex 2019.8.26)  4 DEC 2020 14:00
+This is LuaTeX, Version 1.10.0 (TeX Live 2019)  (format=lualatex 2019.8.26)  4 DEC 2020 14:08
  restricted system commands enabled.
 **test
 (./test.tex
@@ -48,7 +48,7 @@ Inserting `luaotfload.aux.set_capheight' at position 3 in `luaotfload.patch_font
 '.
 Inserting `luaotfload.rewrite_fontname' at position 4 in `luaotfload.patch_font'
 .
-luaotfload | main : initialization completed in 0.105 seconds
+luaotfload | main : initialization completed in 0.064 seconds
 (/usr/local/texlive/2019/texmf-dist/tex/luatex/luatexja/ltjsarticle.cls
 Document Class: ltjsarticle 2019/04/06 ltjsclasses 
 (/usr/local/texlive/2019/texmf-dist/tex/luatex/luatexja/luatexja.sty
@@ -1296,15 +1296,15 @@ LaTeX Font Info:    Font shape `JT3/gt/m/n' will be
 (Font)              scaled to size 13.31586pt on input line 28.
 LaTeX Font Info:    Font shape `JY3/gt/m/n' will be
 (Font)              scaled to size 13.31586pt on input line 28.
-<example.pdf, id=4, 614.295pt x 794.97pt>
+<example.pdf, id=4, 301.125pt x 225.84375pt>
 File: example.pdf Graphic file (type pdf)
 <use example.pdf>
-Package luatex.def Info: example.pdf  used on input line 43.
-(luatex.def)             Requested size: 614.29349pt x 794.96806pt.
+Package luatex.def Info: example.pdf  used on input line 44.
+(luatex.def)             Requested size: 301.12425pt x 225.84319pt.
  [1
 
-{/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2<./exa
-mple.pdf>]
+{/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}<./example
+.pdf>]
 (./test.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
@@ -1314,10 +1314,10 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 Here is how much of LuaTeX's memory you used:
  28322 strings out of 494291
  100000,794899 words of node,token memory allocated
- 7568 words of node memory still in use:
-   10 hlist, 2 vlist, 5 rule, 2 glue, 114 kern, 1 glyph, 2925 attribute, 106 glu
-e_spec, 158 attribute_list, 2 write, 14 user_defined nodes
-   avail lists: 1:14,2:6242,3:75,4:118,5:16,6:19,7:356,8:1,9:149,10:3
+ 7496 words of node memory still in use:
+   10 hlist, 2 vlist, 5 rule, 2 glue, 114 kern, 1 glyph, 2905 attribute, 100 glu
+e_spec, 157 attribute_list, 2 write, 14 user_defined nodes
+   avail lists: 1:14,2:6545,3:83,4:133,5:16,6:20,7:382,8:1,9:160,10:3
  31589 multiletter control sequences out of 65536+600000
  96 fonts using 27900447 bytes
  66i,6n,74p,4461b,995s stack positions out of 5000i,500n,10000p,200000b,100000s
@@ -1326,10 +1326,10 @@ tf></usr/local/texlive/2019/texmf-dist/fonts/truetype/public/ipaex/ipaexg.ttf></
 usr/local/texlive/2019/texmf-dist/fonts/opentype/public/lm/lmsans12-regular.otf>
 </usr/local/texlive/2019/texmf-dist/fonts/opentype/public/lm/lmroman12-regular.o
 tf></usr/local/texlive/2019/texmf-dist/fonts/truetype/public/ipaex/ipaexm.ttf>
-Output written on test.pdf (2 pages, 226234 bytes).
+Output written on test.pdf (1 page, 375056 bytes).
 
-PDF statistics: 64 PDF objects out of 1000 (max. 8388607)
- 37 compressed objects within 1 object stream
+PDF statistics: 85 PDF objects out of 1000 (max. 8388607)
+ 54 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 131072)
  16 words of extra memory for PDF output out of 10000 (max. 100000000)
 
