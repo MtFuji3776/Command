@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: eeabcee4b63c18c0600651631c3625f35c4567074eaa0df9cc321534663a7432
+-- hash: 96682b805f32205e4bf55958f494e6b8152b4bb48e637ef4e734b7c2410644d2
 
 name:           Command
 version:        0.1.0.0
@@ -39,6 +39,7 @@ library
       attoparsec
     , base >=4.7 && <5
     , pandoc
+    , pandoc-types
     , random
     , text
     , turtle
@@ -59,6 +60,7 @@ executable Command-exe
     , attoparsec
     , base >=4.7 && <5
     , pandoc
+    , pandoc-types
     , random
     , text
     , turtle
@@ -78,6 +80,7 @@ test-suite Command-test
     , attoparsec
     , base >=4.7 && <5
     , pandoc
+    , pandoc-types
     , random
     , text
     , turtle

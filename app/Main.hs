@@ -8,6 +8,7 @@ import qualified Data.Text as T
 import System.Random
 import Data.Either(fromRight)
 import RegexParser.Parser
+import PandocTool
 
 main :: IO ()
 main = do
